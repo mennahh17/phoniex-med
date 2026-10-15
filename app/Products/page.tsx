@@ -136,84 +136,8 @@ export default function Product() {
             {error && (
                 <p className="text-center text-red-600 py-10">{error}</p>
             )}
-
-            <div className="grid grid-col-1 sm:grid-cols-2 md:grid-cols-3 gap-6  max-w-6xl mx-auto px-4 py-5">
-
-            <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
-            <div className="relative h-48 w-full">
-            <Image 
-            src="/img/bdc0903ba856a5929d24d284cc18ddfa.jpg"
-            alt="CT Scanner"
-            fill
-            className="object-cover"
-            />
-            </div>
-            <div className="p-4">
-                <h3 className="font-bold text-blue-900">CT Scanner</h3>
-                <p className="text-sm text-gray-500"></p>
-
-            </div>
-            <div className="p-4">
-                    <div className="flex justify-center items-center"> 
-                    <button
-                        onClick={() => addToCart({ id: 1001, name: "CT Scanner", price: 250000 })}
-                        className="text-white font-semibold cursor-pointer bg-blue-900 rounded-lg shadow-2xl py-3 px-7"
-                    >
-                    Add to cart
-                    </button>
-            </div>
-            </div>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-2xl overflow-hidden" >
-            <div className="relative w-full h-48">
-            <Image
-            src="/img/68e17bce70f4e6f485805a6148bf57f7.jpg"
-            alt=""
-            fill
-            className="object-cover"
-            />
-            </div>
-            <div className="p-4">
-                <h3 className="font-bold text-blue-900">Digital Blood Pressure</h3>
-            
-            </div>
-            <div className="p-4">
-                    <div className="flex justify-center items-center"> 
-                    <button
-                        onClick={() => addToCart({ id: 1002, name: "Digital Blood Pressure", price: 450 })}
-                        className="text-white font-semibold cursor-pointer bg-blue-900 rounded-lg shadow-2xl px-7 py-3"
-                    >
-                    Add to cart
-                    </button>
-                </div>
-            </div>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
-                <div className="relative w-full h-48">
-                    <Image
-                    src="/img/57690094b714861e28852743daf134e3.jpg" 
-                    alt="UltraSound machine"
-                    fill
-                    className="object-cover"
-                    />
-                </div>
-                <div className="p-4">
-                <h3 className="font-bold text-blue-900 cursor-pointer">UltraSound machine</h3>
-                </div>
-                <div className="p-4">
-                    <div className="flex justify-center items-center"> 
-                    <button
-                        onClick={() => addToCart({ id: 1003, name: "UltraSound machine", price: 85000 })}
-                        className="text-white font-semibold cursor-pointer bg-blue-900 rounded-lg shadow-2xl px-7 py-3"
-                    >
-                    Add to cart
-                    </button>
-                </div>
-                </div>
-            </div>
-
+            <div className="sm:px-8 lg:px-12 py-12 px-4 mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.map((product) => (
                 <div key={product.id} className="bg-white rounded-xl shadow-2xl overflow-hidden">
                     <div className="relative h-48 w-full bg-gray-100 flex items-center justify-center">
@@ -240,100 +164,15 @@ export default function Product() {
                     </div>
                 </div>
             ))}
-
             </div>
-
-            {isAdmin ? (
-                <div className="max-w-2xl mx-auto mt-10 mb-10">
-                    <h2 className="text-xl font-bold text-blue-900 mb-4">Pending Sell Requests</h2>
-
-                    {pending.length === 0 && (
-                        <p className="text-gray-500">No pending requests.</p>
-                    )}
-
-                    <div className="flex flex-col gap-4">
-                        {pending.map((item) => (
-                            <div
-                                key={item.id}
-                                className="bg-white rounded-lg shadow-2xl p-4 flex items-center gap-4"
-                            >
-                                <div className="flex-1">
-                                    <h3 className="font-semibold text-blue-900">{item.name}</h3>
-                                    <p className="text-sm text-gray-500">{item.description}</p>
-                                    <p className="text-blue-900 font-semibold">{item.price} EGP</p>
-                                </div>
-                                <button
-                                    onClick={() => handleApprove(item.id)}
-                                    className="bg-green-600 text-white font-semibold px-4 py-2 rounded-lg"
-                                >
-                                    Approve
-                                </button>
-                                <button
-                                    onClick={() => handleReject(item.id)}
-                                    className="bg-red-600 text-white font-semibold px-4 py-2 rounded-lg"
-                                >
-                                    Reject
-                                </button>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            ) : (
-                <div className="bg-white rounded-xl shadow-2xl overflow-hidden max-w-md mx-auto mt-10 mb-10">
-                    <div className="relative h-48 w-full bg-gray-100 flex items-center justify-center">
-                        <span className="text-gray-400 text-sm">Product image preview</span>
-                    </div>
-
-                    <div className="p-4">
-                        <h3 className="font-bold text-blue-900 mb-3">Sell Your Equipment</h3>
-
-                        <form onSubmit={handleSubmit}>
-                            <input
-                                type="text"
-                                placeholder="Product name"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                required
-                                className="w-full border rounded-lg px-4 py-2 mb-3 text-blue-900"
-                            />
-
-                            <input
-                                type="number"
-                                placeholder="Price"
-                                value={price}
-                                onChange={(e) => setPrice(e.target.value)}
-                                required
-                                className="w-full border rounded-lg px-4 py-2 mb-3 text-blue-900"
-                            />
-
-                            <textarea
-                                placeholder="Description (optional)"
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
-                                className="w-full border rounded-lg px-4 py-2 mb-3 text-blue-900"
-                            />
-
-                            <input
-                                type="text"
-                                placeholder="Image URL (optional)"
-                                value={imageUrl}
-                                onChange={(e) => setImageUrl(e.target.value)}
-                                className="w-full border rounded-lg px-4 py-2 mb-3 text-blue-900"
-                            />
-
-                            <div className="flex justify-center items-center">
-                                <button
-                                    type="submit"
-                                    className="text-white font-semibold cursor-pointer bg-blue-900 rounded-lg shadow-2xl py-3 px-7"
-                                >
-                                    Submit for Review
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
-
+            </div>
+            <section className="flex flex-col items-center gap-3 py-16 text-center">
+            <h2 className="text-blue-900 font-cantora-one font-bold text-2xl flex justify-center mt-7">Looking to sell your medical device?</h2>
+            <div className="text-blue-900 font-cantora-one font-bold text-xl flex justify-center py-3">List it on our platform and connect with potential buyers</div>
+            <Link href="/Sell"
+            className="flex justify-center  w-fit rounded-2xl bg-blue-900 shadow-2xl px-10 py-3 hover:bg-white hover:text-blue-900 transition font-fredoka shadow-2xl transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-xl hover-bg-blue-800 active:translate-y-0 active:scale-95"
+            >Sell equipment</Link>
+            </section>
         </main>
     );
 }

@@ -74,6 +74,13 @@ export default function Header() {
                 >My Cart </Link>
                 </div>
 
+                <div >
+                <Link href="/Sell"
+                className="block text-blue-900 px-4 py-2 hover:bg-blue-900/50 rounded-2xl font-bold"
+                onClick={()=>setIsOpen(false)}
+                >Sell Equipment </Link>
+                </div>
+
               <button
                     onClick={handleLogout}
                     className="w-full text-left px-4 py-2 text-blue-900 hover:bg-blue-900/50 rounded-2xl font-bold"

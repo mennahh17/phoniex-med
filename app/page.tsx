@@ -29,7 +29,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="font-bold text-2xl flex justify-center py-7 text-blue-900">
+      <div className=" font-oleo-script text-[35px] flex justify-center py-7 text-blue-900">
         Our Services
       </div>
 
@@ -67,7 +67,47 @@ export default function Home() {
             facilities.
           </p>
         </div>
+      </div>
+      
+      <div className="flex justify-center items-center">
+        
+          <div className=" text-[35px] font-oleo-script text-blue-900">
+        Shop by Category
+          </div>
+          </div>
 
+          <div className="flex justify-center items-center gap-10 py-7">
+            <div className="flex flex-col items-center gap-3">
+            <img
+            src="/img/NSM-S15P-Neusoft-Medical-Systems.webp"
+            alt=""
+            className="w-48 h-48 rounded-full object-cover"
+            />
+          <span className="text-blue-900 font-bold "> MRI Scanner  </span>
+          </div>
+
+          <div className="flex flex-col items-center gap-2">
+            <img
+            src="/img/bdc0903ba856a5929d24d284cc18ddfa.jpg"
+            alt=""
+            className="w-48 h-48 rounded-full object-cover"
+            />
+            <span className="text-blue-900 font-bold"> CT Scanner</span>
+          </div>
+
+          <div className="flex flex-col items-center gap-2">
+            <img
+            src="/img/images.jpeg"
+            alt=""
+            className="w-48 h-48 rounded-full object-cover"
+            />
+            <span className="text-blue-900 font-bold">IC component</span>
+          </div>
+          </div>
+
+          <div className="flex justify-center py-5">
+          <Link href ="/Products"
+          className="font-oleo-script text-xl bg-blue-900 px-10 py-3 rounded-2xl shadow-2xl"> View All Products </Link>
       </div>
     </main>
   );

@@ -14,6 +14,22 @@
   --font-alex-brush: var(--font-alex-brush);
   --font-cantora-one: var(--font-cantora-one);
   --font-oleo-script: var(--font-oleo-script);
+  --font-fredoka: var(--font-fredoka);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.step-animate {
+  animation: slideIn 0.3s ease-out;
 }
 
 body {
