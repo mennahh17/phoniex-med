@@ -58,3 +58,12 @@ node_modules/
 dist/
 
 /src/generated/prisma
+
+.agents/
+.claude/
+.cursor/
+.devin/
+.windsurf/
+*.tsbuildinfo
+uploads/*
+!uploads/.gitkeep
