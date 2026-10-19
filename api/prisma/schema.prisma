@@ -1,0 +1,202 @@
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "esm"
+  importFileExtension = "js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model product {
+  id                Int            @id @default(autoincrement())
+  name              String
+  description       String?
+  price             Float
+  regularPrice      Float?
+  salePrice         Float?
+  costPrice         Float?
+  tax               Float?
+  discount          Float?
+  sku               String?
+  lowStockThreshold Int?
+  trackInventory    Boolean  @default(false)
+  manufacturer      String?
+  modelNumber       String?
+  partNumber        String?
+  warranty          String?
+  deviceType        String?
+  accessories       String?
+  manufactureYear   String?
+  weight            String?
+  dimensions        String?
+  technicalSpecs    String?
+  imageUrl          String?
+  images            ProductImage[]
+  status            String         @default("approved")
+  submittedBy       String?
+  condition         String?
+  brand             String?
+  category          String?
+  isActive          Boolean       @default(true)
+  year              String?
+  askingPrice       Int?
+  location       String?
+  sellerName     String?
+  sellerPhone    String?
+  sellerEmail    String?
+  sellerCompany  String?
+  sellerMessage  String?
+  documents      String[]
+  stockStatus       String?
+  quantity          Int?
+  stockMovements StockMovement[]
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+}
+
+model User {
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean   @default(false)
+  image         String?
+  role          String    @default("customer")
+  phone         String?
+  location      String?
+  companyName   String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+model Order {
+  id               Int         @id @default(autoincrement())
+  userId           String
+  status           String      @default("pending")
+  totalPrice       Float
+  items            OrderItem[]
+  deliveryAddress  String?
+  phone            String?
+  email            String?
+  country          String?
+  firstName        String?
+  lastName         String?
+  city             String?
+  governorate      String?
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+}
+
+model OrderItem {
+  id          Int      @id @default(autoincrement())
+  orderId     Int
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   Int
+  productName String
+  price       Float
+  quantity    Int
+}
+
+model ProductImage {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  product   product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model StockMovement {
+  id          Int      @id @default(autoincrement())
+  productId   Int
+  product     product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  change      Int
+  previousQty Int
+  newQty      Int
+  reason      String
+  note        String?
+  adminEmail  String
+  createdAt   DateTime @default(now())
+}
+
+model Notification {
+  id    Int  @id @default(autoincrement())
+  type  String 
+  title     String
+  message   String
+  link      String?
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([isRead])
+  @@index([createdAt])
+
+}
+
+model NotificationSettings {
+  id                 Int     @id @default(1)
+  enabled            Boolean @default(true)
+  inApp              Boolean @default(true)
+  email              Boolean @default(false)
+  newOrders          Boolean @default(true)
+  sellRequests       Boolean @default(true)
+  lowStock           Boolean @default(true)
+  customerInquiries  Boolean @default(true)
+  payments           Boolean @default(true)
+  newCustomers       Boolean @default(true)
+  defaultLowStock    Int     @default(3)
+}

@@ -1,0 +1,23 @@
+model user {
+id                     string            @id
+name                   string
+email                  string
+emailVerified          Boolean           @default(false)
+image                  string?
+role                   string            @default("customer")
+phone                  string?
+location               string?
+companyName            string?
+createdAt              DateTime          @default(now())
+updatedAt              DateTime          @updatedAt
+sessions               session[]
+accounts               Account[]
+
+@@unique([email)
+@@map("user)
+
+}
+
+{
+
+}
